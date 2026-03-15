@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wissembourg Auto | Occasions Certifiées</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">(en test)---Wissembourg<span>Auto</span></div>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#inventory">Stock</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Votre prochaine voiture à Wissembourg</h1>
+            <p>Spécialiste du véhicule d'occasion sélectionné avec soin.</p>
+            <a href="#inventory" class="btn">Consulter le parc</a>
+        </div>
+    </section>
+
+    <main id="inventory">
+        <h2 class="section-title">Nos Véhicules Disponibles</h2>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Chercher une marque (ex: Audi, Renault...)">
+        </div>
+
+        <div class="car-grid" id="carGrid">
+            </div>
+    </main>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Nous Contacter</h2>
+                <p>Notre showroom vous accueille à Wissembourg pour vos essais.</p>
+                <ul class="info-list">
+                    <li>📍 67160 Wissembourg, France</li>
+                    <li>📞 03 88 XX XX XX</li>
+                    <li>📧 contact@wissembourg-auto.fr</li>
+                </ul>
+            </div>
+
+            <div class="contact-form">
+                <form id="vehicleContactForm">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" id="name" required placeholder="Ex: Jean Dupont">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required placeholder="nom@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Objet</label>
+                        <select id="subject">
+                            <option value="essai">Demander un essai</option>
+                            <option value="reprise">Estimation de reprise</option>
+                            <option value="dispo">Disponibilité véhicule</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="message" rows="4" required placeholder="Quel modèle vous intéresse ?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-submit">Envoyer mon message</button>
+                </form>
+                <div id="formFeedback" class="hidden">✓ Votre message a été transmis avec succès.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Wissembourg Auto - Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
