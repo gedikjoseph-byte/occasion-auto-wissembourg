@@ -24,41 +24,64 @@ header {
 }
 
 nav { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: 800; color: var(--primary); font-size: 1.3rem; }
+.logo { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
 .logo span { color: var(--accent); }
-.nav-links { display: flex; list-style: none; gap: 20px; }
-.nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; }
+
+.nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.85rem; }
+
+.admin-link {
+    background: var(--primary);
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
 
 .hero {
-    height: 65vh;
+    height: 60vh;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                 url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80') center/cover;
     display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center;
+    padding: 20px;
 }
 
-.btn-hero { margin-top: 50px; padding: 15px 40px !important; font-size: 1.1rem; }
+.btn-hero { margin-top: 40px; padding: 15px 35px !important; border-radius: 50px !important; }
 
 .hidden { display: none !important; }
-.admin-section { background: #e0e2e6; padding: 40px 5%; border-bottom: 4px solid var(--primary); }
-.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
-.admin-grid input, .admin-grid textarea { padding: 12px; border-radius: 6px; border: 1px solid #bdc3c7; width: 100%; }
 
-.car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 5%; }
+/* Admin Section Styling */
+.admin-section { background: #e0e2e6; padding: 30px 5%; border-bottom: 4px solid var(--primary); }
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.admin-grid input, .admin-grid textarea { padding: 12px; border-radius: 5px; border: 1px solid #bdc3c7; width: 100%; font-size: 1rem; }
+
+.file-input-wrapper {
+    grid-column: 1 / -1;
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px dashed var(--primary);
+    text-align: center;
+}
+.file-input-wrapper label { display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary); }
+
+/* Car Display */
+.car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 40px 5%; }
 .car-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
-.car-card:hover { transform: translateY(-8px); }
-.car-card img { width: 100%; height: 220px; object-fit: cover; }
+.car-card:hover { transform: translateY(-5px); }
+.car-card img { width: 100%; height: 210px; object-fit: cover; }
 .car-info { padding: 20px; }
 .price { color: var(--primary); font-weight: bold; font-size: 1.4rem; margin: 10px 0; }
 .status-text { font-style: italic; font-size: 0.9rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 10px; }
 
-.btn { background: var(--accent); color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.3s; }
+.btn { background: var(--accent); color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; }
 .btn-dark { background: var(--dark); }
 
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.modal-content { background: white; padding: 40px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; }
+.modal-content { background: white; padding: 40px; border-radius: 15px; width: 95%; max-width: 400px; text-align: center; }
 .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #ddd; }
 
-@media (max-width: 768px) {
-    .nav-links { display: none; }
-    .contact-container { grid-template-columns: 1fr; }
+@media (max-width: 600px) {
+    .hide-mobile { display: none; }
+    .logo { font-size: 1rem; }
+    .hero h1 { font-size: 1.5rem; }
 }

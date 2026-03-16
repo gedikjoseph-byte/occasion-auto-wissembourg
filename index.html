@@ -12,10 +12,9 @@
         <nav>
             <div class="logo">Wissembourg<span>Auto</span></div>
             <ul class="nav-links">
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#inventory">Stock</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#" id="adminLoginBtn">Admin</a></li>
+                <li class="hide-mobile"><a href="#">Accueil</a></li>
+                <li class="hide-mobile"><a href="#inventory">Stock</a></li>
+                <li><a href="#" id="adminLoginBtn" class="admin-link">Connexion Admin</a></li>
             </ul>
         </nav>
     </header>
@@ -33,15 +32,20 @@
             <h2>Ajouter un véhicule au stock</h2>
             <form id="addCarForm">
                 <div class="admin-grid">
-                    <input type="text" id="carBrand" placeholder="Marque et Modèle (ex: BMW X5)" required>
-                    <input type="number" id="carPrice" placeholder="Prix (ex: 25000)" required>
+                    <input type="text" id="carBrand" placeholder="Marque et Modèle (ex: Audi A3)" required>
+                    <input type="number" id="carPrice" placeholder="Prix (ex: 15900)" required>
                     <input type="number" id="carYear" placeholder="Année" required>
-                    <input type="text" id="carKm" placeholder="Kilométrage (ex: 50 000 km)" required>
-                    <input type="file" id="carImage" accept="image/*" required>
+                    <input type="text" id="carKm" placeholder="Kilométrage (ex: 45 000 km)" required>
+                    
+                    <div class="file-input-wrapper">
+                        <label for="carImage">Prendre une photo ou choisir un fichier</label>
+                        <input type="file" id="carImage" accept="image/*" capture="environment" required>
+                    </div>
+
                     <textarea id="carStatus" placeholder="Description de l'état du véhicule..." rows="3"></textarea>
                 </div>
                 <div class="admin-buttons">
-                    <button type="submit" class="btn">Ajouter et Fermer</button>
+                    <button type="submit" class="btn">Enregistrer et Fermer</button>
                     <button type="button" id="logoutBtn" class="btn btn-dark">Se déconnecter</button>
                 </div>
             </form>
@@ -50,7 +54,7 @@
 
     <div id="loginModal" class="modal hidden">
         <div class="modal-content">
-            <h3>Accès Administration</h3>
+            <h3>Espace Administration</h3>
             <input type="text" id="username" placeholder="Identifiant">
             <input type="password" id="password" placeholder="Mot de passe">
             <button id="loginSubmit" class="btn">Valider</button>
@@ -61,10 +65,9 @@
     <main id="inventory">
         <h2 class="section-title">Nos Véhicules Disponibles</h2>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Rechercher par marque...">
+            <input type="text" id="searchInput" placeholder="Rechercher une marque...">
         </div>
-        <div class="car-grid" id="carGrid">
-            </div>
+        <div class="car-grid" id="carGrid"></div>
     </main>
 
     <section id="contact" class="contact-section">
@@ -79,17 +82,17 @@
             </div>
             <div class="contact-form">
                 <form id="vehicleContactForm">
-                    <input type="text" placeholder="Nom" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea rows="4" placeholder="Votre demande..." required></textarea>
-                    <button type="submit" class="btn btn-submit">Envoyer</button>
+                    <input type="text" placeholder="Votre nom" required>
+                    <input type="email" placeholder="Votre email" required>
+                    <textarea rows="4" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
+                    <button type="submit" class="btn btn-submit">Envoyer le message</button>
                 </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Wissembourg Auto - Expert Occasion Alsace</p>
+        <p>&copy; 2026 Wissembourg Auto - Expert Occasion à Wissembourg</p>
     </footer>
 
     <script src="script.js"></script>
