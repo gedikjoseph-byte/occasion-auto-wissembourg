@@ -1,68 +1,119 @@
-// Données de démo avec images actives
-const cars = [
-    {
-        brand: "Volkswagen Tiguan",
-        price: "22 900 €",
-        year: 2021,
-        km: "35 000 km",
-        img: "https://images.unsplash.com/photo-1541899481282-d53bffe3c15d?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        brand: "Audi A3 Sportback",
-        price: "28 500 €",
-        year: 2022,
-        km: "18 000 km",
-        img: "https://images.unsplash.com/photo-1542362567-b0520bb1f11b?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        brand: "Mercedes Classe A",
-        price: "25 400 €",
-        year: 2020,
-        km: "42 000 km",
-        img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        brand: "Dacia Sandero Stepway",
-        price: "11 900 €",
-        year: 2019,
-        km: "55 000 km",
-        img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80"
-    }
-];
+// LocalStorage verileri
+let cars = JSON.parse(localStorage.getItem('myCars')) || [];
 
 const carGrid = document.getElementById('carGrid');
 const searchInput = document.getElementById('searchInput');
+const adminPanel = document.getElementById('adminPanel');
+const loginModal = document.getElementById('loginModal');
 
-// Affichage des voitures
+// --- GÜVENLİK FONKSİYONU ---
+// Admin olup olmadığını anlık kontrol eder
+function checkAdmin() {
+    return localStorage.getItem('isLogged') === 'true';
+}
+
+// --- LOGIN ---
+document.getElementById('adminLoginBtn').onclick = (e) => {
+    e.preventDefault();
+    loginModal.classList.remove('hidden');
+};
+
+document.getElementById('closeModal').onclick = () => loginModal.classList.add('hidden');
+
+document.getElementById('loginSubmit').onclick = () => {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    if(user === "Admin" && pass === "Gediks") {
+        loginModal.classList.add('hidden');
+        adminPanel.classList.remove('hidden');
+        localStorage.setItem('isLogged', 'true');
+        displayCars(cars); // Listeyi admin butonlarıyla güncelle
+    } else {
+        alert("Accès refusé.");
+    }
+};
+
+// --- LOGOUT ---
+document.getElementById('logoutBtn').onclick = () => {
+    adminPanel.classList.add('hidden');
+    localStorage.removeItem('isLogged'); // Oturumu kapat
+    displayCars(cars); // Listeyi temizle (butonlar kaybolur)
+};
+
+// --- ARAÇ EKLEME ---
+document.getElementById('addCarForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    const file = document.getElementById('carImage').files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const rawPrice = document.getElementById('carPrice').value;
+        const formattedPrice = new Intl.NumberFormat('fr-FR').format(rawPrice) + " €";
+
+        const newCar = {
+            brand: document.getElementById('carBrand').value,
+            price: formattedPrice,
+            year: document.getElementById('carYear').value,
+            km: document.getElementById('carKm').value,
+            img: event.target.result,
+            status: document.getElementById('carStatus').value
+        };
+
+        cars.push(newCar);
+        localStorage.setItem('myCars', JSON.stringify(cars));
+        
+        displayCars(cars);
+        e.target.reset();
+        adminPanel.classList.add('hidden');
+        alert("Véhicule enregistré !");
+    };
+
+    if(file) reader.readAsDataURL(file);
+};
+
+// --- ARAÇLARI LİSTELEME (GÜVENLİ) ---
 function displayCars(carsArray) {
-    carGrid.innerHTML = carsArray.map(car => `
+    const isAdmin = checkAdmin(); // Her çizimde admin kontrolü yap
+    
+    carGrid.innerHTML = carsArray.map((car, index) => `
         <div class="car-card">
             <img src="${car.img}" alt="${car.brand}">
             <div class="car-info">
                 <h3>${car.brand}</h3>
-                <p>${car.year} | ${car.km}</p>
+                <p>Année : ${car.year} | ${car.km}</p>
                 <p class="price">${car.price}</p>
-                <button class="btn" style="width:100%; margin-top:10px;">Voir détails</button>
+                <p class="status-text">${car.status || "Aucune description."}</p>
+                ${isAdmin ? `
+                    <button onclick="deleteCar(${index})" class="btn" style="background:#222; width:100%; margin-top:15px; font-size:0.8rem;">Supprimer l'annonce</button>
+                ` : ''}
             </div>
         </div>
     `).join('');
 }
 
-// Filtrage
-searchInput.addEventListener('input', (e) => {
+// --- ARAÇ SİLME ---
+function deleteCar(index) {
+    if(!checkAdmin()) return; // Admin değilse işlemi durdur
+
+    if(confirm("Confirmer la suppression ?")) {
+        cars.splice(index, 1);
+        localStorage.setItem('myCars', JSON.stringify(cars));
+        displayCars(cars);
+        adminPanel.classList.add('hidden');
+    }
+}
+
+searchInput.oninput = (e) => {
     const term = e.target.value.toLowerCase();
     const filtered = cars.filter(car => car.brand.toLowerCase().includes(term));
     displayCars(filtered);
-});
+};
 
-// Formulaire
-document.getElementById('vehicleContactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const feedback = document.getElementById('formFeedback');
-    feedback.classList.remove('hidden');
-    this.reset();
-    setTimeout(() => feedback.classList.add('hidden'), 5000);
-});
-
-// Initialisation
-displayCars(cars);
+// İlk açılış
+window.onload = () => {
+    // Eğer tarayıcıda admin oturumu kalmışsa paneli göster
+    if(checkAdmin()) adminPanel.classList.remove('hidden');
+    displayCars(cars);
+};
