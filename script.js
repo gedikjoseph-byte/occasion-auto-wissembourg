@@ -1,15 +1,17 @@
-let cars = JSON.parse(localStorage.getItem('myCars')) || [];
+// Données du LocalStorage (nous avons nommé la clé garageAckCars)
+let cars = JSON.parse(localStorage.getItem('garageAckCars')) || [];
 
 const carGrid = document.getElementById('carGrid');
 const searchInput = document.getElementById('searchInput');
 const adminPanel = document.getElementById('adminPanel');
 const loginModal = document.getElementById('loginModal');
 
+// --- SÉCURITÉ ---
 function checkAdmin() {
-    return localStorage.getItem('isLogged') === 'true';
+    return localStorage.getItem('ackLogged') === 'true'; // Nous avons nommé la clé ackLogged
 }
 
-// Connexion
+// --- CONNEXION ---
 document.getElementById('adminLoginBtn').onclick = (e) => {
     e.preventDefault();
     loginModal.classList.remove('hidden');
@@ -24,7 +26,7 @@ document.getElementById('loginSubmit').onclick = () => {
     if(user === "Admin" && pass === "Gediks") {
         loginModal.classList.add('hidden');
         adminPanel.classList.remove('hidden');
-        localStorage.setItem('isLogged', 'true');
+        localStorage.setItem('ackLogged', 'true');
         displayCars(cars);
         window.scrollTo(0,0);
     } else {
@@ -32,14 +34,15 @@ document.getElementById('loginSubmit').onclick = () => {
     }
 };
 
-// Déconnexion
+// --- DÉCONNEXION ---
 document.getElementById('logoutBtn').onclick = () => {
     adminPanel.classList.add('hidden');
-    localStorage.removeItem('isLogged');
+    localStorage.removeItem('ackLogged');
     displayCars(cars);
 };
 
-// Ajout de véhicule
+// --- AJOUT DE VÉHICULE ---
+// --- MODIFICATION : Uniquement pour l'ajout de véhicule ---
 document.getElementById('addCarForm').onsubmit = function(e) {
     e.preventDefault();
     
@@ -47,7 +50,6 @@ document.getElementById('addCarForm').onsubmit = function(e) {
     const reader = new FileReader();
 
     reader.onload = function(event) {
-        // Formatage automatique du prix en Euros
         const rawPrice = document.getElementById('carPrice').value;
         const formattedPrice = new Intl.NumberFormat('fr-FR').format(rawPrice) + " €";
 
@@ -61,18 +63,19 @@ document.getElementById('addCarForm').onsubmit = function(e) {
         };
 
         cars.push(newCar);
-        localStorage.setItem('myCars', JSON.stringify(cars));
+        localStorage.setItem('garageAckCars', JSON.stringify(cars));
         
-        displayCars(cars);
         e.target.reset();
-        adminPanel.classList.add('hidden');
-        alert("Félicitations ! Le véhicule est maintenant en ligne.");
+        
+        // --- C'est ici que la déconnexion se produit ---
+        logoutAdmin(); 
+        alert("Annonce enregistrée ! Votre session est maintenant fermée.");
     };
 
     if(file) reader.readAsDataURL(file);
 };
 
-// Affichage dynamique
+// --- AFFICHAGE DES VOITURES (SÉCURISÉ) ---
 function displayCars(carsArray) {
     const isAdmin = checkAdmin();
     
@@ -86,9 +89,9 @@ function displayCars(carsArray) {
             <img src="${car.img}" alt="${car.brand}">
             <div class="car-info">
                 <h3>${car.brand}</h3>
-                <p>Modèle ${car.year} | ${car.km}</p>
+                <p>Année : ${car.year} | ${car.km}</p>
                 <p class="price">${car.price}</p>
-                <p class="status-text">${car.status || "Véhicule révisé et garanti."}</p>
+                <p class="status-text">${car.status || "Véhicule révisé et garanti par Garage ACK."}</p>
                 ${isAdmin ? `
                     <button onclick="deleteCar(${index})" class="btn" style="background:#222; width:100%; margin-top:15px; font-size:0.8rem;">Supprimer l'annonce</button>
                 ` : ''}
@@ -97,25 +100,23 @@ function displayCars(carsArray) {
     `).join('');
 }
 
-// Suppression
+// --- SUPPRESSION DE VÉHICULE ---
 function deleteCar(index) {
     if(!checkAdmin()) return;
-    if(confirm("Êtes-vous sûr de vouloir supprimer cette annonce ?")) {
+    if(confirm("Voulez-vous supprimer ce véhicule du stock de Garage ACK ?")) {
         cars.splice(index, 1);
-        localStorage.setItem('myCars', JSON.stringify(cars));
+        localStorage.setItem('garageAckCars', JSON.stringify(cars));
         displayCars(cars);
-        adminPanel.classList.add('hidden');
+        adminPanel.classList.add('hidden'); // Fermer après la suppression
     }
 }
 
-// Recherche
 searchInput.oninput = (e) => {
     const term = e.target.value.toLowerCase();
     const filtered = cars.filter(car => car.brand.toLowerCase().includes(term));
     displayCars(filtered);
 };
 
-// Initialisation au chargement
 window.onload = () => {
     if(checkAdmin()) adminPanel.classList.remove('hidden');
     displayCars(cars);

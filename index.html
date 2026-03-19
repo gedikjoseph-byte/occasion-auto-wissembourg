@@ -2,47 +2,76 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wissembourg Auto | Occasions Certifiées</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Garage ACK | Expert Automobile à Soufflenheim | Mécanique & Occasions</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <header>
         <nav>
-            <div class="logo">Wissembourg<span>Auto</span></div>
+            <div class="logo">GARAGE <span>ACK</span></div>
             <ul class="nav-links">
-                <li class="hide-mobile"><a href="#">Accueil</a></li>
-                <li class="hide-mobile"><a href="#inventory">Stock</a></li>
-                <li><a href="#" id="adminLoginBtn" class="admin-link">Connexion Admin</a></li>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#inventory">Occasions</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="adminLoginBtn" class="admin-link">Connexion</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Votre prochaine voiture à Wissembourg</h1>
-            <p>Spécialiste du véhicule d'occasion sélectionné avec soin.</p>
-            <a href="#inventory" class="btn btn-hero">Consulter le parc</a>
+            <h1>GARAGE <span>ACK</span></h1>
+            <p>Votre expert automobile toutes marques à Soufflenheim.</p>
+            <p class="hero-subtext">Mécanique générale, diagnostic & vente d'occasions révisées.</p>
+            <p class="hero-years">Au service de nos clients depuis 2003.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">Prendre RDV</a>
+                <a href="#inventory" class="btn btn-secondary">Consulter le parc</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <h2 class="section-title">Nos Prestations</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-tools service-icon"></i>
+                <h3>Mécanique Générale</h3>
+                <p>Moteur, embrayage, boîte, freins : réparation et entretien toutes marques.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-car service-icon"></i>
+                <h3>Vente Occasions</h3>
+                <p>Véhicules sélectionnés, révisés en profondeur et garantis.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-laptop-code service-icon"></i>
+                <h3>Diagnostic & Électronique</h3>
+                <p>Recherche de pannes, valise diagnostic et programmation.</p>
+            </div>
         </div>
     </section>
 
     <section id="adminPanel" class="admin-section hidden">
         <div class="admin-container">
-            <h2>Ajouter un véhicule au stock</h2>
+            <h2>Espace Pro : Ajouter une Occasion</h2>
             <form id="addCarForm">
                 <div class="admin-grid">
-                    <input type="text" id="carBrand" placeholder="Marque et Modèle (ex: Audi A3)" required>
+                    <input type="text" id="carBrand" placeholder="Marque & Modèle (ex: VW Golf 7)" required>
                     <input type="number" id="carPrice" placeholder="Prix (ex: 15900)" required>
                     <input type="number" id="carYear" placeholder="Année" required>
-                    <input type="text" id="carKm" placeholder="Kilométrage (ex: 45 000 km)" required>
+                    <input type="text" id="carKm" placeholder="Kilométrage (ex: 85 000 km)" required>
                     
                     <div class="file-input-wrapper">
                         <label for="carImage">Prendre une photo ou choisir un fichier</label>
                         <input type="file" id="carImage" accept="image/*" capture="environment" required>
                     </div>
 
-                    <textarea id="carStatus" placeholder="Description de l'état du véhicule..." rows="3"></textarea>
+                    <textarea id="carStatus" placeholder="Description de l'état (options, historique...)" rows="3"></textarea>
                 </div>
                 <div class="admin-buttons">
                     <button type="submit" class="btn">Enregistrer et Fermer</button>
@@ -54,7 +83,7 @@
 
     <div id="loginModal" class="modal hidden">
         <div class="modal-content">
-            <h3>Espace Administration</h3>
+            <h3>Espace Administration ACK</h3>
             <input type="text" id="username" placeholder="Identifiant">
             <input type="password" id="password" placeholder="Mot de passe">
             <button id="loginSubmit" class="btn">Valider</button>
@@ -65,34 +94,54 @@
     <main id="inventory">
         <h2 class="section-title">Nos Véhicules Disponibles</h2>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Rechercher une marque...">
+            <input type="text" id="searchInput" placeholder="Filtrer par marque (ex: Audi, BMW...)">
         </div>
         <div class="car-grid" id="carGrid"></div>
     </main>
 
     <section id="contact" class="contact-section">
         <div class="contact-container">
-            <div class="contact-info">
-                <h2>Contactez-nous</h2>
+            
+            <div class="contact-card info-card">
+                <h2>Nous Contacter</h2>
                 <ul class="info-list">
-                    <li>📍 67160 Wissembourg</li>
-                    <li>📞 03 88 XX XX XX</li>
-                    <li>📧 contact@wissembourg-auto.fr</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 10 r Courbure, 67620 Soufflenheim</li>
+                    <li><i class="fas fa-phone-alt"></i> 03 88 09 32 86 (Fixe)</li>
+                    <li><i class="fas fa-mobile-alt"></i> 06 37 44 76 99 (Portable)</li>
+                    <li><i class="fas fa-envelope"></i> contact@garage-ack.fr</li>
                 </ul>
+                <div class="horaires">
+                    <h3><i class="fas fa-clock"></i> Horaires d'ouverture</h3>
+                    <p>Lun - Ven : 09h00 - 12h00 / 14h00 - 19h00</p>
+                    <p>Samedi : 09h00 - 16h00 (Non-stop)</p>
+                    <p>Dimanche : Fermé</p>
+                </div>
             </div>
-            <div class="contact-form">
+
+            <div class="contact-card form-card">
+                <h2>Votre Message</h2>
                 <form id="vehicleContactForm">
-                    <input type="text" placeholder="Votre nom" required>
-                    <input type="email" placeholder="Votre email" required>
-                    <textarea rows="4" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
-                    <button type="submit" class="btn btn-submit">Envoyer le message</button>
+                    <div class="form-grid">
+                        <input type="text" placeholder="Nom" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="tel" placeholder="Téléphone (Optionnel)">
+                        <select>
+                            <option value="" disabled selected>Sujet</option>
+                            <option value="reparation">Réparation Mécanique</option>
+                            <option value="achat">Achat Occasion</option>
+                            <option value="estimation">Estimation de Reprise</option>
+                        </select>
+                    </div>
+                    <textarea rows="4" placeholder="Votre message détaillé..." required></textarea>
+                    <button type="submit" class="btn btn-submit">Envoyer</button>
                 </form>
             </div>
+
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Wissembourg Auto - Expert Occasion à Wissembourg</p>
+        <p>&copy; 2026 GARAGE ACK - Soufflenheim. Expert automobile depuis 2003.</p>
     </footer>
 
     <script src="script.js"></script>

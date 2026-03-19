@@ -1,17 +1,24 @@
 :root {
-    --primary: #1e3799;
-    --accent: #eb4d4b;
+    --primary: #1e3799; /* BLEU ACK */
+    --accent: #eb4d4b; /* ROUGE ACK */
     --dark: #2f3640;
     --light: #f5f6fa;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Prévenir le débordement horizontal */
+}
+
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--light);
     color: var(--dark);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 header {
@@ -24,11 +31,11 @@ header {
 }
 
 nav { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: 800; color: var(--primary); font-size: 1.1rem; }
+.logo { font-weight: 900; color: var(--primary); font-size: 1.4rem; letter-spacing: -1px; }
 .logo span { color: var(--accent); }
 
 .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
-.nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.85rem; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; }
 
 .admin-link {
     background: var(--primary);
@@ -37,51 +44,104 @@ nav { display: flex; justify-content: space-between; align-items: center; }
     border-radius: 5px;
 }
 
+/* SECTION HERO - CORRIGÉE POUR L'IMAGE hero-ack.jpg */
 .hero {
-    height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80') center/cover;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; text-align: center;
-    padding: 20px;
+    height: 70vh;
+    /* L'image doit être nommée hero-ack.jpg et être dans le même dossier */
+    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), 
+                      url('hero-ack.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; color: #222; text-align: center;
+    padding: 30px;
+    margin-bottom: 50px;
 }
 
-.btn-hero { margin-top: 40px; padding: 15px 35px !important; border-radius: 50px !important; }
+.hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 10px; }
+.hero h1 span { color: var(--primary); }
+.hero p { font-size: 1.2rem; font-weight: 600; margin: 5px 0; }
+.hero-subtext { font-style: italic; margin: 10px 0; font-weight: 400 !important; }
+.hero-years { color: var(--accent); font-weight: bold !important; font-size: 1.3rem !important; }
+.hero-buttons { margin-top: 40px; display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
 
-.hidden { display: none !important; }
+/* SECTION SERVICES */
+.services-section { padding: 80px 5%; background-color: #fff; text-align: center; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 0; }
+.service-card { text-align: center; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+.service-card:hover { transform: translateY(-5px); }
+.service-icon { font-size: 3rem; color: var(--primary); margin-bottom: 25px; display: block; }
+.service-card h3 { color: var(--primary); margin-bottom: 15px; }
 
-/* Admin Section Styling */
-.admin-section { background: #e0e2e6; padding: 30px 5%; border-bottom: 4px solid var(--primary); }
-.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-.admin-grid input, .admin-grid textarea { padding: 12px; border-radius: 5px; border: 1px solid #bdc3c7; width: 100%; font-size: 1rem; }
-
-.file-input-wrapper {
-    grid-column: 1 / -1;
-    background: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px dashed var(--primary);
-    text-align: center;
-}
-.file-input-wrapper label { display: block; margin-bottom: 10px; font-weight: bold; color: var(--primary); }
-
-/* Car Display */
-.car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 40px 5%; }
-.car-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+/* SECTION INVENTAIRE */
+.car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 50px 5%; }
+.car-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
 .car-card:hover { transform: translateY(-5px); }
 .car-card img { width: 100%; height: 210px; object-fit: cover; }
 .car-info { padding: 20px; }
 .price { color: var(--primary); font-weight: bold; font-size: 1.4rem; margin: 10px 0; }
-.status-text { font-style: italic; font-size: 0.9rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 10px; }
+.status-text { font-style: italic; font-size: 0.85rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 10px; }
 
+/* SECTION CONTACT */
+.contact-section { background: var(--dark); color: #fff; padding: 80px 5%; }
+.section-title { color: #fff; margin-bottom: 50px; text-align: center;}
+.contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; }
+
+.contact-card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.info-list i { color: var(--accent); margin-right: 15px; font-size: 1.2rem; }
+.info-list li { margin-bottom: 15px; font-size: 1.1rem; list-style: none;}
+
+.horaires h3 i { margin-right: 10px;}
+.horaires p { font-size: 1rem; margin-bottom: 5px; color: #eee; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+.contact-card input, .contact-card select, .contact-card textarea {
+    width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #ddd; background: #fff; font-size: 1rem; color: #222;
+}
+.contact-card textarea { grid-column: 1 / -1; }
+
+/* ADMIN & MODAL */
+.hidden { display: none !important; }
+.admin-section { background: #e0e2e6; padding: 30px 5%; border-bottom: 4px solid var(--primary); color: #222; }
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 15px; }
+.file-input-wrapper { grid-column: 1 / -1; background: #fff; padding: 15px; border-radius: 5px; border: 1px dashed var(--primary); text-align: center; }
+
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; color: #222; }
+.modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 350px; text-align: center; }
+
+/* BOUTONS */
 .btn { background: var(--accent); color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; }
+.btn-secondary { background: var(--primary); }
 .btn-dark { background: var(--dark); }
+.btn-submit { width: 100%; margin-top: 10px; }
 
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.modal-content { background: white; padding: 40px; border-radius: 15px; width: 95%; max-width: 400px; text-align: center; }
-.modal-content input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 6px; border: 1px solid #ddd; }
+/* REQUÊTES MÉDIA POUR LE RESPONSIVE */
 
-@media (max-width: 600px) {
-    .hide-mobile { display: none; }
-    .logo { font-size: 1rem; }
-    .hero h1 { font-size: 1.5rem; }
+/* Appareils de taille moyenne (max 1024px) */
+@media (max-width: 1024px) {
+    .contact-container { grid-template-columns: 1fr; } /* Empiler les cartes de contact */
+    .hero h1 { font-size: 2.8rem; }
+}
+
+/* Tablettes (max 768px) */
+@media (max-width: 768px) {
+    header { padding: 1rem; }
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 0.8rem; }
+    .logo { font-size: 1.1rem; }
+    .hero { height: 60vh; padding: 15px; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero p { font-size: 1rem; }
+    .section-title { font-size: 1.5rem; }
+    .form-grid { grid-template-columns: 1fr; } /* Formulaire sur une seule colonne */
+}
+
+/* Mobiles (max 480px) */
+@media (max-width: 480px) {
+    .hide-mobile { display: none; } /* Cacher les éléments Accueil/Stock */
+    .hero h1 { font-size: 1.8rem; }
+    .admin-link { padding: 5px 10px; font-size: 0.75rem; }
+    .car-grid { grid-template-columns: 1fr; } /* Afficher les voitures une par une */
+    .hero-buttons { flex-direction: column; width: 100%; gap: 10px; }
+    .hero-buttons .btn { width: 100%; }
 }
